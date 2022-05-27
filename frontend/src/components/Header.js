@@ -1,5 +1,6 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
@@ -9,7 +10,7 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#home">Dashboard</Nav.Link>
-            {/* <Nav.Link href="#link">Link</Nav.Link> */}
+            <Nav.Link href="/mystock">Stocks</Nav.Link>
           </Nav>
           <Nav className="mr-auto">
             <NavDropdown title="Palisha Shakya" id="basic-nav-dropdown">
