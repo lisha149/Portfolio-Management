@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import MainScreen from "../../components/MainScreen";
 import { Link } from "react-router-dom";
-import stocks from "../../data/stocks";
+import axios from "axios";
 const MyStocks = () => {
+  const [stocks, setStocks] = useState([]);
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
     }
   };
+  const fetchStocks = async () => {
+    const { data } = await axios.get("/api/stocks");
+    setStocks(data);
+  };
+
+  console.log(stocks);
+  useEffect(() => {
+    fetchStocks();
+  }, []);
   return (
     <MainScreen title="Welcome Palisha Shakya">
       <Link to="createtransition">
@@ -17,7 +27,7 @@ const MyStocks = () => {
         </Button>
       </Link>
       {stocks.map((stock) => (
-        <Accordion>
+        <Accordion key={stock._id}>
           <Card style={{ margin: 10 }}>
             <Card.Header style={{ display: "flex" }}>
               <span
