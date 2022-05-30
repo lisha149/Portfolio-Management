@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const stocks = require("./data/stocks");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
+const stockRoutes = require("./routes/stockRoutes");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const app = express();
 dotenv.config();
@@ -13,11 +14,12 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API is running");
 });
-app.get("/api/stocks", (req, res) => {
-  res.json(stocks);
-});
+// app.get("/api/stocks", (req, res) => {
+//   res.json(stocks);
+// });
 
 app.use("/api/auth", userRoutes);
+app.use("/api/stocks", stockRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
