@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Paper,
@@ -11,6 +11,8 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import Error from "../../components/ErrorMessage";
 const RegisterPage = () => {
   const paperStyle = {
     padding: 20,
@@ -38,7 +40,23 @@ const RegisterPage = () => {
       .required("Required"),
   });
 
-  const onSubmit = (values, props) => {
+  const [error, setError] = useState(false);
+
+  const onSubmit = async (values, props) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post("/api/auth", values, config);
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+
     console.log(values);
     setTimeout(() => {
       props.resetForm();
@@ -57,6 +75,7 @@ const RegisterPage = () => {
             Please fill this form to create an account!
           </Typography>
         </Grid>
+        {error && <Error>{error}</Error>}
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

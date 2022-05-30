@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Paper,
@@ -14,7 +14,9 @@ import LockIcon from "@mui/icons-material/Lock";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+import axios from "axios";
+import Error from "../../components/ErrorMessage";
+import { useHistory } from "react-router-dom";
 const LoginPage = ({ handleChange }) => {
   const paperStyle = {
     padding: 20,
@@ -33,13 +35,38 @@ const LoginPage = ({ handleChange }) => {
     email: Yup.string().email("Please enter valid email").required("Required"),
     password: Yup.string().required("Required"),
   });
-  const onSubmit = (values, props) => {
-    console.log(values);
+
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      history.push("/mystock");
+      window.location.reload();
+    }
+  }, [history]);
+  const onSubmit = async (values, props) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      setLoading(true);
+      const { data } = await axios.post("/api/auth/login", values, config);
+      setLoading(false);
+      console.log(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      setError(error.response.data.message);
+    }
     setTimeout(() => {
       props.resetForm();
       props.setSubmitting(false);
     }, 1000);
   };
+
   return (
     <Grid>
       <Paper elevation={10} style={paperStyle}>
@@ -49,6 +76,8 @@ const LoginPage = ({ handleChange }) => {
           </Avatar>
           <h2>Login</h2>
         </Grid>
+        {error && <Error>{error}</Error>}
+
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}

@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 const LandingPage = () => {
+  // const history = useHistory();
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+  //   if (userInfo) {
+  //     history.push("/mystock");
+  //     window.location.reload();
+  //   }
+  // }, [history]);
   return (
     <div className="main">
       <Container>
