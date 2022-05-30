@@ -19,6 +19,7 @@ const MyStocks = () => {
   useEffect(() => {
     fetchStocks();
   }, []);
+  //
   return (
     <MainScreen title="Welcome Palisha Shakya">
       <Link to="createtransition">

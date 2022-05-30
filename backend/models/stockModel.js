@@ -4,9 +4,11 @@ const stockSchema = mongoose.Schema(
     stockname: {
       type: String,
       required: true,
+      unique: true,
     },
     transitiontype: {
       type: String,
+      enum: ["BUY", "SELL"],
       required: true,
     },
     quantity: {
@@ -16,6 +18,7 @@ const stockSchema = mongoose.Schema(
     amount: {
       type: Number,
       required: true,
+      min: 1,
     },
     transitiondate: {
       type: Date,
