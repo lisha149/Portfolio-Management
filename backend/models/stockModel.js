@@ -4,7 +4,6 @@ const stockSchema = mongoose.Schema(
     stockname: {
       type: String,
       required: true,
-      unique: true,
     },
     transactiontype: {
       type: String,

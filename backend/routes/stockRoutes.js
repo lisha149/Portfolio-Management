@@ -12,5 +12,4 @@ router.route("/").get(protect, getStocks);
 router.route("/create").post(protect, createStock);
 router.route("/:id").get(getStockById).delete(protect, deleteStock);
 //   .put(protect, UpdateStock)
-
 module.exports = router;

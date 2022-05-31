@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import CreateTransaction from "./pages/CreateTransaction/CreateTransaction";
 import { useState } from "react";
+
 const App = () => {
   const [search, setSearch] = useState("");
   return (

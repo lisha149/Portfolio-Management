@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import {
   Nav,
   Navbar,
-  NavDropdown,
   Container,
   Form,
   FormControl,
   Button,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { logout } from "../actions/userActions";
 const Header = ({ setSearch }) => {
   const dispatch = useDispatch();
@@ -45,16 +44,11 @@ const Header = ({ setSearch }) => {
           <Nav>
             {userInfo ? (
               <>
-                <Nav.Link href="/mystock">Stocks</Nav.Link>
-                <Nav.Link href="#home">Dashboard</Nav.Link>
-                {/* <NavDropdown
-                  title={`${userInfo.name}`}
-                  id="collasible-nav-dropdown"
-                > */}
+                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+
                 <Button variant="outline-secondary" onClick={logoutHandler}>
                   Logout
                 </Button>
-                {/* </NavDropdown> */}
               </>
             ) : (
               <Nav.Link href="/login">Login</Nav.Link>
