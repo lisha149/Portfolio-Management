@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import CreateTransaction from "./pages/CreateTransaction/CreateTransaction";
 import { useState } from "react";
+import ViewTransaction from "./pages/ViewTransaction/ViewTransaction";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -22,7 +23,12 @@ const App = () => {
             <MyStocks search={search} history={history} />
           )}
         />
-
+        <Route
+          path="/view"
+          component={({ history }) => (
+            <ViewTransaction search={search} history={history} />
+          )}
+        />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/createtransaction" component={CreateTransaction} />

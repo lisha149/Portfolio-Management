@@ -1,6 +1,5 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const stocks = require("./data/stocks");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const stockRoutes = require("./routes/stockRoutes");

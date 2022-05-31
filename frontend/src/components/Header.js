@@ -8,7 +8,7 @@ import {
   Button,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { logout } from "../actions/userActions";
 const Header = ({ setSearch }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,8 @@ const Header = ({ setSearch }) => {
           <Nav>
             {userInfo ? (
               <>
-                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                <Nav.Link href="/view">View Transaction</Nav.Link>
+                <Nav.Link href="#home">Dashboard</Nav.Link>
 
                 <Button variant="outline-secondary" onClick={logoutHandler}>
                   Logout
