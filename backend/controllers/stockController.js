@@ -2,20 +2,20 @@ const Stock = require("../models/stockModel");
 const asyncHandler = require("express-async-handler");
 
 const getStocks = asyncHandler(async (req, res) => {
-  const stocks = await Stock.find();
+  const stocks = await Stock.find({ user: req.user._id });
   res.json(stocks);
 });
 
 const createStock = asyncHandler(async (req, res) => {
-  const { stockname, transitiontype, quantity, amount, transitiondate } =
+  const { stockname, transactiontype, quantity, amount, transactiondate } =
     req.body;
 
   if (
     !stockname ||
-    !transitiontype ||
+    !transactiontype ||
     !quantity ||
     !amount ||
-    !transitiondate
+    !transactiondate
   ) {
     res.status(400);
     throw new Error("Please fill in all the feilds");
@@ -23,10 +23,10 @@ const createStock = asyncHandler(async (req, res) => {
     const stock = new Stock({
       user: req.user._id,
       stockname,
-      transitiontype,
+      transactiontype,
       quantity,
       amount,
-      transitiondate,
+      transactiondate,
     });
 
     const createdStock = await stock.save();
@@ -44,7 +44,7 @@ const getStockById = asyncHandler(async (req, res) => {
   }
 });
 // const UpdateStock = asyncHandler(async (req, res) => {
-//   const { stockname, transitiontype, quantity, amount, transitiondate } = req.body;
+//   const { stockname, transactiontype, quantity, amount, transactiondate } = req.body;
 
 //   const stock = await Stock.findById(req.params.id);
 
@@ -55,10 +55,10 @@ const getStockById = asyncHandler(async (req, res) => {
 
 //   if (stock) {
 //     stock.stockname=stockname,
-//  stock.transitiontype= transitiontype,
+//  stock.transactiontype= transactiontype,
 //   stock.quantity=quantity,
 //   stock.amount=amount,
-//   stock.transitiondate=transitiondate,
+//   stock.transactiondate=transactiondate,
 
 //     const updatedStock = await stock.save();
 //     res.json(updatedStock);
