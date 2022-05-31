@@ -14,10 +14,11 @@ import LockIcon from "@mui/icons-material/Lock";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import Error from "../../components/ErrorMessage";
 import { useHistory } from "react-router-dom";
-const LoginPage = ({ handleChange }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../actions/userActions";
+const LoginPage = () => {
   const paperStyle = {
     padding: 20,
     height: "80vh",
@@ -36,35 +37,20 @@ const LoginPage = ({ handleChange }) => {
     password: Yup.string().required("Required"),
   });
 
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { error, userInfo } = userLogin;
+
   useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       history.push("/mystock");
-      window.location.reload();
     }
-  }, [history]);
-  const onSubmit = async (values, props) => {
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-      setLoading(true);
-      const { data } = await axios.post("/api/auth/login", values, config);
-      setLoading(false);
-      console.log(data);
-      localStorage.setItem("userInfo", JSON.stringify(data));
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 1000);
+  }, [history, userInfo]);
+
+  const onSubmit = (values) => {
+    dispatch(login(values));
   };
 
   return (

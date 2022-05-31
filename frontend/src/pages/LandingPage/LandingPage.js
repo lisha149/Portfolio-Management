@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { Container, Row, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 const LandingPage = () => {
-  // const history = useHistory();
-  // useEffect(() => {
-  //   const userInfo = localStorage.getItem("userInfo");
-  //   if (userInfo) {
-  //     history.push("/mystock");
-  //     window.location.reload();
-  //   }
-  // }, [history]);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const history = useHistory();
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mystock");
+    }
+  }, [history, userInfo]);
   return (
     <div className="main">
       <Container>

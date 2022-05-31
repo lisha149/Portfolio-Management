@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   Paper,
@@ -11,12 +11,15 @@ import {
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import Error from "../../components/ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../actions/userActions";
+import { useHistory } from "react-router-dom";
 const RegisterPage = () => {
   const paperStyle = {
     padding: 20,
     width: 280,
+    height: "80vh",
     margin: "40px auto",
   };
   const avatarStyle = { backgroundColor: "#158cba" };
@@ -39,29 +42,20 @@ const RegisterPage = () => {
       .oneOf([Yup.ref("password")], "Password donot match")
       .required("Required"),
   });
+  const dispatch = useDispatch();
 
-  const [error, setError] = useState(false);
+  const userRegister = useSelector((state) => state.userRegister);
+  const { error, userInfo } = userRegister;
 
-  const onSubmit = async (values, props) => {
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      const { data } = await axios.post("/api/auth", values, config);
-
-      localStorage.setItem("userInfo", JSON.stringify(data));
-    } catch (error) {
-      setError(error.response.data.message);
+  const history = useHistory();
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mystock");
     }
+  }, [history, userInfo]);
 
-    console.log(values);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 1000);
+  const onSubmit = (values) => {
+    dispatch(register(values));
   };
   return (
     <Grid>

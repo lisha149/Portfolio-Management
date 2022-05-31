@@ -1,0 +1,7 @@
+.createStockContainer {
+  display: flex;
+  flex-direction: column;
+}
+.createStockContainer .form-group {
+  margin: 15px 0;
+}
