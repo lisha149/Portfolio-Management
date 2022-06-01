@@ -97,8 +97,10 @@ const MyStocks = ({ search }) => {
                     </span>
                   </h4>
                   <blockquote className="blockquote mb-0">
-                    <p>Quantity-{stock.quantity}</p>
-                    <p> Amount-{stock.amount}</p>
+                    <p>
+                      Quantity-{stock.quantity}
+                      <h5>Amount-{stock.amount}</h5>
+                    </p>
                     <footer className="blockquote-footer">
                       Transaction on{" "}
                       <cite title="Source Title">{stock.transactiondate}</cite>

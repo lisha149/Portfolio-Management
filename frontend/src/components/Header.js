@@ -6,6 +6,7 @@ import {
   Form,
   FormControl,
   Button,
+  NavDropdown,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
@@ -44,12 +45,19 @@ const Header = ({ setSearch }) => {
           <Nav>
             {userInfo ? (
               <>
-                <Nav.Link href="/view">View Transaction</Nav.Link>
                 <Nav.Link href="#home">Dashboard</Nav.Link>
-
-                <Button variant="outline-secondary" onClick={logoutHandler}>
-                  Logout
-                </Button>
+                <NavDropdown
+                  title={userInfo?.name}
+                  id="navbarScrollingDropdown"
+                >
+                  <NavDropdown.Item href="/view">
+                    View Transaction
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
               </>
             ) : (
               <Nav.Link href="/login">Login</Nav.Link>
