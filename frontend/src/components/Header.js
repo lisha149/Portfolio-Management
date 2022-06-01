@@ -5,11 +5,10 @@ import {
   Container,
   Form,
   FormControl,
-  Button,
   NavDropdown,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { logout } from "../actions/userActions";
 const Header = ({ setSearch }) => {
   const dispatch = useDispatch();
