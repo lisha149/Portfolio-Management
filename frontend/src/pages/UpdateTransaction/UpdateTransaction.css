@@ -1,0 +1,7 @@
+.updateStockContainer {
+  display: flex;
+  flex-direction: column;
+}
+.updateStockContainer .form-group {
+  margin: 15px 0;
+}

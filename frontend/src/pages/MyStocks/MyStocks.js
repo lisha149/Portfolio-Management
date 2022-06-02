@@ -80,6 +80,7 @@ const MyStocks = ({ search }) => {
                   </Accordion.Toggle>
                 </span>
                 <div>
+                  <Button href={`/stock/${stock._id}`}>Edit</Button>
                   <Button
                     variant="danger"
                     className="mx-2"

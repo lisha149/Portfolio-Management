@@ -9,6 +9,9 @@ import {
   STOCKS_LIST_FAIL,
   STOCKS_LIST_REQUEST,
   STOCKS_LIST_SUCCESS,
+  STOCKS_UPDATE_FAIL,
+  STOCKS_UPDATE_REQUEST,
+  STOCKS_UPDATE_SUCCESS,
 } from "../constants/stockConstants";
 
 export const listStocks = () => async (dispatch, getState) => {
@@ -116,3 +119,43 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateStockAction =
+  (id, stockname, transactiontype, quantity, amount, transactiondate) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: STOCKS_UPDATE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/stocks/${id}`,
+        { stockname, transactiontype, quantity, amount, transactiondate },
+        config
+      );
+
+      dispatch({
+        type: STOCKS_UPDATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: STOCKS_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

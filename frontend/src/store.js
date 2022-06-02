@@ -3,6 +3,7 @@ import {
   stockListReducer,
   stockCreateReducer,
   stockDeleteReducer,
+  stockUpdateReducer,
 } from "./reducers/stockReducers";
 import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
 
@@ -21,6 +22,7 @@ export const store = configureStore({
     stockList: stockListReducer,
     stockCreate: stockCreateReducer,
     stockDelete: stockDeleteReducer,
+    stockUpdate: stockUpdateReducer,
   },
   preloadedState,
 });

@@ -8,6 +8,9 @@ import {
   STOCKS_LIST_FAIL,
   STOCKS_LIST_REQUEST,
   STOCKS_LIST_SUCCESS,
+  STOCKS_UPDATE_FAIL,
+  STOCKS_UPDATE_REQUEST,
+  STOCKS_UPDATE_SUCCESS,
 } from "../constants/stockConstants";
 
 export const stockListReducer = (state = { stocks: [] }, action) => {
@@ -45,6 +48,20 @@ export const stockDeleteReducer = (state = {}, action) => {
     case STOCKS_DELETE_SUCCESS:
       return { loading: false, success: true };
     case STOCKS_DELETE_FAIL:
+      return { loading: false, error: action.payload, success: false };
+
+    default:
+      return state;
+  }
+};
+
+export const stockUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case STOCKS_UPDATE_REQUEST:
+      return { loading: true };
+    case STOCKS_UPDATE_SUCCESS:
+      return { loading: false, success: true };
+    case STOCKS_UPDATE_FAIL:
       return { loading: false, error: action.payload, success: false };
 
     default:
