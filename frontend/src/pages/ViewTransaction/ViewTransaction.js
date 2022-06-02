@@ -41,8 +41,8 @@ const ViewTransaction = ({ search }) => {
                 <p>
                   {stock.quantity} units at Rs {stock.amount}
                   <h6>
-                    <i>Transaction Date:</i>
-                    {stock.transactiondate}
+                    <i>Transaction Date: </i>
+                    {stock.transactiondate.substring(0, 10)}
                   </h6>
                 </p>
               </Card.Body>

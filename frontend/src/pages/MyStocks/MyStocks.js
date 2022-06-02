@@ -104,7 +104,9 @@ const MyStocks = ({ search }) => {
                     </p>
                     <footer className="blockquote-footer">
                       Transaction on{" "}
-                      <cite title="Source Title">{stock.transactiondate}</cite>
+                      <cite title="Source Title">
+                        {stock.transactiondate.substring(0, 10)}
+                      </cite>
                     </footer>
                   </blockquote>
                 </Card.Body>
