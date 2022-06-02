@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import CreateTransaction from "./pages/CreateTransaction/CreateTransaction";
 import { useState } from "react";
 import ViewTransaction from "./pages/ViewTransaction/ViewTransaction";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const App = () => {
   const [search, setSearch] = useState("");
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/createtransaction" component={CreateTransaction} />
+        <Route path="/dashboard" component={Dashboard} />
       </main>
       <Footer />
     </BrowserRouter>

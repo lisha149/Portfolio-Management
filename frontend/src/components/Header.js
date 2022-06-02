@@ -44,7 +44,7 @@ const Header = ({ setSearch }) => {
           <Nav>
             {userInfo ? (
               <>
-                <Nav.Link href="#home">Dashboard</Nav.Link>
+                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
                 <NavDropdown
                   title={userInfo?.name}
                   id="navbarScrollingDropdown"
