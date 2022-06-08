@@ -11,7 +11,7 @@ import data from "../../data/stockdata";
 import "./CreateTransaction.css";
 const CreateTransaction = () => {
   const [stockname, setStockname] = useState(null);
-  const [transactiontype, setTransactiontype] = useState("");
+  const [transactiontype, setTransactiontype] = useState(null);
   const [quantity, setQuantity] = useState("");
   const [amount, setAmount] = useState("");
   const [transactiondate, setTransactiondate] = useState("");
@@ -54,8 +54,15 @@ const CreateTransaction = () => {
   };
 
   const handleChange = (obj) => {
-    setStockname(obj);
+    setStockname(obj.value);
   };
+  const handle = (obj) => {
+    setTransactiontype(obj.value);
+  };
+  const transactionType = [
+    { value: "sell", label: "Sell" },
+    { value: "buy", label: "Buy" },
+  ];
   return (
     <MainScreen title="Add a stock transaction">
       <div className="createStockContainer">
@@ -68,7 +75,7 @@ const CreateTransaction = () => {
               <Form.Group controlId="title">
                 <Form.Label>Stock Name</Form.Label>
                 <Select
-                  value={stockname}
+                  value={data.find((x) => x.value === stockname)}
                   options={data}
                   onChange={handleChange}
                   getOptionLabel={(option) => option.stockname}
@@ -86,12 +93,21 @@ const CreateTransaction = () => {
 
               <Form.Group controlId="content">
                 <Form.Label>Transaction Type</Form.Label>
-                <Form.Control
+                <Select
+                  value={transactionType.find(
+                    (x) => x.value === transactiontype
+                  )}
+                  options={transactionType}
+                  onChange={handle}
+                />
+                <b>Transaction Type:</b>
+                <pre>{JSON.stringify(transactiontype)}</pre>
+                {/* <Form.Control
                   type="text"
                   value={transactiontype}
                   placeholder="Enter the transaction type"
                   onChange={(e) => setTransactiontype(e.target.value)}
-                />
+                /> */}
               </Form.Group>
 
               <Form.Group controlId="content">
