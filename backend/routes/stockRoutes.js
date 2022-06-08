@@ -7,8 +7,8 @@ const {
   deleteStock,
 } = require("../controllers/stockController");
 const protect = require("../middlewares/authMiddleware");
-
 const router = express.Router();
+
 router.route("/").get(protect, getStocks);
 router.route("/create").post(protect, createStock);
 router

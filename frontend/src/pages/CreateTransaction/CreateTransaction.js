@@ -6,9 +6,11 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createStockAction } from "../../actions/stockActions";
+import Select from "react-select";
+import data from "../../data/stockdata";
 import "./CreateTransaction.css";
 const CreateTransaction = () => {
-  const [stockname, setStockname] = useState("");
+  const [stockname, setStockname] = useState(null);
   const [transactiontype, setTransactiontype] = useState("");
   const [quantity, setQuantity] = useState("");
   const [amount, setAmount] = useState("");
@@ -50,6 +52,10 @@ const CreateTransaction = () => {
     resetHandler();
     history.push("/mystock");
   };
+
+  const handleChange = (obj) => {
+    setStockname(obj);
+  };
   return (
     <MainScreen title="Add a stock transaction">
       <div className="createStockContainer">
@@ -61,12 +67,21 @@ const CreateTransaction = () => {
 
               <Form.Group controlId="title">
                 <Form.Label>Stock Name</Form.Label>
-                <Form.Control
+                <Select
+                  value={stockname}
+                  options={data}
+                  onChange={handleChange}
+                  getOptionLabel={(option) => option.stockname}
+                />
+                <br />
+                <b>Stock name :</b>
+                <pre>{JSON.stringify(stockname)}</pre>
+                {/* <Form.Control
                   type="text"
                   value={stockname}
                   placeholder="Enter the stock name"
                   onChange={(e) => setStockname(e.target.value)}
-                />
+                /> */}
               </Form.Group>
 
               <Form.Group controlId="content">

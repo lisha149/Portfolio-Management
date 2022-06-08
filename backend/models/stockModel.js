@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const stockSchema = mongoose.Schema(
   {
     stockname: {
-      type: String,
+      type: Object,
       required: true,
     },
     transactiontype: {
