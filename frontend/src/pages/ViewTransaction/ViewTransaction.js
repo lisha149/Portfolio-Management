@@ -12,6 +12,8 @@ const ViewTransaction = ({ search }) => {
   const stockList = useSelector((state) => state.stockList);
   const { loading, error, stocks } = stockList;
 
+  const stockCreate = useSelector((state) => state.stockCreate);
+  const { success: successCreate } = stockCreate;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -21,7 +23,8 @@ const ViewTransaction = ({ search }) => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch, userInfo, history]);
+  }, [dispatch, userInfo, history, successCreate]);
+
   return (
     <MainScreen title="Portfolio Transactions">
       <div className="viewTransaction">
@@ -40,10 +43,9 @@ const ViewTransaction = ({ search }) => {
                 <h5>{stock.stockname}</h5>
                 <p>
                   {stock.quantity} units at Rs {stock.amount}
-                  <h6>
-                    <i>Transaction Date: </i>
-                    {stock.transactiondate.substring(0, 10)}
-                  </h6>
+                  <h5 id="total"></h5>
+                  <i>Transaction Date:</i>
+                  {stock.transactiondate.substring(0, 10)}
                 </p>
               </Card.Body>
             ))}

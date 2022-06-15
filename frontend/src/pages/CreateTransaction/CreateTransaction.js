@@ -8,13 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { createStockAction } from "../../actions/stockActions";
 import Select from "react-select";
 import data from "../../data/stockdata";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./CreateTransaction.css";
 const CreateTransaction = () => {
   const [stockname, setStockname] = useState(null);
   const [transactiontype, setTransactiontype] = useState(null);
   const [quantity, setQuantity] = useState("");
   const [amount, setAmount] = useState("");
-  const [transactiondate, setTransactiondate] = useState("");
+  const [transactiondate, setTransactiondate] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -29,6 +31,7 @@ const CreateTransaction = () => {
     setQuantity("");
     setAmount("");
   };
+
   const history = useHistory();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -60,8 +63,8 @@ const CreateTransaction = () => {
     setTransactiontype(obj.value);
   };
   const transactionType = [
-    { value: "sell", label: "Sell" },
-    { value: "buy", label: "Buy" },
+    { value: "Sell", label: "Sell" },
+    { value: "Buy", label: "Buy" },
   ];
   return (
     <MainScreen title="Add a stock transaction">
@@ -83,12 +86,6 @@ const CreateTransaction = () => {
                 <br />
                 <b>Stock name :</b>
                 <pre>{JSON.stringify(stockname)}</pre>
-                {/* <Form.Control
-                  type="text"
-                  value={stockname}
-                  placeholder="Enter the stock name"
-                  onChange={(e) => setStockname(e.target.value)}
-                /> */}
               </Form.Group>
 
               <Form.Group controlId="content">
@@ -102,12 +99,6 @@ const CreateTransaction = () => {
                 />
                 <b>Transaction Type:</b>
                 <pre>{JSON.stringify(transactiontype)}</pre>
-                {/* <Form.Control
-                  type="text"
-                  value={transactiontype}
-                  placeholder="Enter the transaction type"
-                  onChange={(e) => setTransactiontype(e.target.value)}
-                /> */}
               </Form.Group>
 
               <Form.Group controlId="content">
@@ -117,6 +108,7 @@ const CreateTransaction = () => {
                   value={quantity}
                   placeholder="Enter the units"
                   onChange={(e) => setQuantity(e.target.value)}
+                  id="units"
                 />
               </Form.Group>
 
@@ -127,16 +119,24 @@ const CreateTransaction = () => {
                   value={amount}
                   placeholder="Enter the amount"
                   onChange={(e) => setAmount(e.target.value)}
+                  id="price"
                 />
               </Form.Group>
 
               <Form.Group controlId="content">
                 <Form.Label>Transaction Date</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="content"
                   value={transactiondate}
                   placeholder="Enter the transaction date"
                   onChange={(e) => setTransactiondate(e.target.value)}
+                /> */}
+                <DatePicker
+                  selected={transactiondate}
+                  onChange={(date) => setTransactiondate(date)}
+                  formatDate="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableMonthYearDropdown
                 />
               </Form.Group>
 

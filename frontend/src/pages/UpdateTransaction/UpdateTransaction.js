@@ -10,6 +10,8 @@ import Loading from "../../components/Loading";
 import Select from "react-select";
 import data from "../../data/stockdata";
 import "./UpdateTransaction.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const UpdateTransaction = ({ match }) => {
   const [stockname, setStockname] = useState();
@@ -31,7 +33,6 @@ const UpdateTransaction = ({ match }) => {
       setQuantity(data.quantity);
       setAmount(data.amount);
       setDate(data.updatedAt);
-      setTransactiondate(data.transactiondate);
     };
     fetching();
   }, [match.params.id, date]);
@@ -76,8 +77,8 @@ const UpdateTransaction = ({ match }) => {
     setTransactiontype(obj.value);
   };
   const transactionType = [
-    { value: "sell", label: "Sell" },
-    { value: "buy", label: "Buy" },
+    { value: "Sell", label: "Sell" },
+    { value: "Buy", label: "Buy" },
   ];
   return (
     <MainScreen title="Edit Transaction">
@@ -147,11 +148,12 @@ const UpdateTransaction = ({ match }) => {
 
               <Form.Group controlId="content">
                 <Form.Label>Transaction Date</Form.Label>
-                <Form.Control
-                  type="content"
-                  value={transactiondate}
-                  placeholder="Enter the transaction date"
-                  onChange={(e) => setTransactiondate(e.target.value)}
+                <DatePicker
+                  selected={transactiondate}
+                  onChange={(date) => setTransactiondate(date)}
+                  formatDate="dd/MM/yyyy"
+                  showYearDropdown
+                  scrollableMonthYearDropdown
                 />
               </Form.Group>
 
